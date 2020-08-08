@@ -1,3 +1,7 @@
+SR-GNN模型，注释参考：https://github.com/userbehavioranalysis/SR-GNN-Chinese_Comment_edition
+https://github.com/nakaizura/Source-Code-Notebook
+
+以下为源代码的README内容：
 # SR-GNN
 
 ## Paper data and code
