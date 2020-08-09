@@ -42,10 +42,10 @@ class GNN(Module):
 
     def GNNCell(self, A, hidden):
         # A-->实际上是该batch数据图矩阵的列表  eg:(100,5?,10?(即5?X2))
-        # hidden--> eg(100-batch_size,5?,100-embeding_size)，hidden相当于v_t-1 ？？？
+        # hidden--> eg(100-batch_size,5?,100-embeding_size)，hidden就相当于公式的v_t-1
         # 后面所有的5?代表这个维的长度是该batch唯一最大类别长度(类别数目不足该长度的session补0)，根据不同batch会变化
         # 有关matmul的解释：矩阵相乘，多维会广播相乘。
-        # 取出A的入度矩阵部分
+        # 分别取出A的入度和出度矩阵部分，然后和线性化之后的hidden相乘。
         input_in = torch.matmul(A[:, :, :A.shape[1]], self.linear_edge_in(hidden)) + self.b_iah # input_in：(100,5?,100)
         input_out = torch.matmul(A[:, :, A.shape[1]: 2 * A.shape[1]], self.linear_edge_out(hidden)) + self.b_oah  # input_out(100,5?,100)
         # 在最后一个维度上将两个矩阵拼接起来。即论文As一样的形状
